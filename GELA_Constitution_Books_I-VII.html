@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📖 GELA Constitution — Complete Edition (Books I–VII)</title>
+    <style>
+        /* ============================================================
+           ROOT VARIABLES & THEMES
+           ============================================================ */
+        :root {
+            --bg-primary: #0a0a12;
+            --bg-secondary: #111122;
+            --bg-card: #141425;
+            --bg-hover: #1a1a35;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #666;
+            --gold: #ffd700;
+            --gold-dim: rgba(255, 215, 0, 0.08);
+            --gold-border: rgba(255, 215, 0, 0.12);
+            --shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            --glow: 0 0 40px rgba(255, 215, 0, 0.04);
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Segoe UI', 'Noto Sans Bengali', 'Arial', sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f0e8;
+            --bg-secondary: #ffffff;
+            --bg-card: #faf8f4;
+            --bg-hover: #f0ece4;
+            --text-primary: #1a1a1a;
+            --text-secondary: #444;
+            --text-muted: #888;
+            --shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+            --glow: 0 0 40px rgba(255, 215, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font);
+            line-height: 1.8;
+            padding: 20px;
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+        }
+
+        .book-container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            padding: 50px 60px;
+            box-shadow: var(--shadow), var(--glow);
+            border: 1px solid var(--gold-border);
+            position: relative;
+            overflow: hidden;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+
+        .book-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd70022, #ff6b0022, #ffd70022, #ff6b0022);
+            background-size: 400% 400%;
+            border-radius: 32px;
+            z-index: -1;
+            animation: borderGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* ============================================================
+           TOP BAR
+           ============================================================ */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gold-border);
+            margin-bottom: 30px;
+        }
+
+        .top-bar .brand {
+            font-size: 14px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .top-bar .brand span {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .top-bar-controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-controls button {
+            background: var(--bg-card);
+            border: 1px solid var(--gold-border);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font);
+        }
+
+        .top-bar-controls button:hover {
+            background: var(--gold);
+            color: #0a0a12;
+            border-color: var(--gold);
+        }
+
+        .top-bar-controls button.active {
+            background: var(--gold);
+            color: #0a0a12;
+            border-color: var(--gold);
+        }
+
+        /* ============================================================
+           SEARCH
+           ============================================================ */
+        .search-wrap {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--gold-border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: var(--font);
+            transition: border var(--transition);
+            outline: none;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.05);
+        }
+
+        .search-wrap input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+        }
+
+        .search-clear.visible {
+            display: block;
+        }
+
+        .search-highlight {
+            background: #ffd70044;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        /* ============================================================
+           PROGRESS BAR
+           ============================================================ */
+        .progress-bar-wrap {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            margin: 0 0 30px 0;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), #ff6b00);
+            border-radius: 10px;
+            transition: width 0.1s;
+        }
+
+        /* ============================================================
+           TITLE PAGE
+           ============================================================ */
+        .title-page {
+            text-align: center;
+            padding: 50px 0 40px;
+            border-bottom: 2px solid var(--gold-border);
+            margin-bottom: 40px;
+        }
+
+        .title-page .gold {
+            color: var(--gold);
+            font-size: 14px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .title-page h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold), #ffb800, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0 10px;
+            line-height: 1.2;
+        }
+
+        .title-page .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .title-page .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), #ff6b00);
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        .title-page .author {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .title-page .author span {
+            color: var(--gold);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--gold-dim);
+            border: 1px solid var(--gold-border);
+            color: var(--gold);
+            padding: 4px 18px;
+            border-radius: 50px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-top: 15px;
+        }
+
+        /* ============================================================
+           TABLE OF CONTENTS
+           ============================================================ */
+        .toc {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px 40px;
+            margin: 40px 0;
+            border: 1px solid var(--gold-border);
+            transition: background var(--transition);
+        }
+
+        .toc h2 {
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 30px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-grid li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 14px;
+        }
+
+        .toc-grid li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .toc-grid li a:hover {
+            color: var(--gold);
+        }
+
+        .toc-grid .chapter-num {
+            color: var(--gold);
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           BOOK DIVIDERS
+           ============================================================ */
+        .book-divider {
+            text-align: center;
+            padding: 50px 0 30px;
+            border-top: 2px solid var(--gold-border);
+            margin-top: 40px;
+        }
+
+        .book-divider .book-label {
+            font-size: 14px;
+            color: var(--gold);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .book-divider h2 {
+            font-size: 38px;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin: 5px 0;
+        }
+
+        .book-divider .book-sub {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        .book-divider .line {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 15px auto;
+        }
+
+        /* ============================================================
+           CHAPTER
+           ============================================================ */
+        .chapter {
+            margin: 50px 0 30px;
+            padding: 30px 0 20px;
+            border-top: 1px solid var(--gold-border);
+            scroll-margin-top: 80px;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .chapter-number {
+            font-size: 13px;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .chapter-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 8px 0 15px;
+            line-height: 1.3;
+        }
+
+        .chapter-title .gold {
+            color: var(--gold);
+        }
+
+        .chapter-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            max-height: 9999px;
+        }
+
+        .chapter-content.collapsed {
+            max-height: 0;
+        }
+
+        .collapsible-toggle {
+            cursor: pointer;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+            font-size: 14px;
+            margin-left: 12px;
+        }
+
+        .collapsible-toggle .arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .collapsible-toggle .arrow.open {
+            transform: rotate(90deg);
+        }
+
+        /* ============================================================
+           QUOTES, TABLES, LISTS, BOXES
+           ============================================================ */
+        .quote {
+            background: var(--gold-dim);
+            border-left: 4px solid var(--gold);
+            padding: 18px 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-primary);
+            font-size: 17px;
+            transition: background var(--transition);
+        }
+
+        .quote .source {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: normal;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 16px;
+            border: 1px solid var(--gold-border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table th {
+            background: var(--gold-dim);
+            color: var(--gold);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--gold-border);
+        }
+
+        table td {
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--gold-border);
+            color: var(--text-secondary);
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        table tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        .gela-row td {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .gela-row {
+            background: var(--gold-dim);
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            font-size: 16px;
+            transition: color var(--transition);
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        ul,
+        ol {
+            padding-left: 25px;
+            margin: 15px 0;
+            color: var(--text-secondary);
+        }
+
+        ul li,
+        ol li {
+            margin-bottom: 8px;
+        }
+
+        .principle-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .principle-list li {
+            padding: 10px 16px;
+            margin-bottom: 8px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border-left: 3px solid var(--gold-border);
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            transition: background var(--transition);
+        }
+
+        .principle-list li strong {
+            color: var(--gold);
+            min-width: 30px;
+        }
+
+        .oath-box {
+            background: linear-gradient(145deg, var(--gold-dim), rgba(255, 215, 0, 0.01));
+            border: 2px solid var(--gold-border);
+            border-radius: 20px;
+            padding: 35px 40px;
+            margin: 30px 0;
+            text-align: center;
+            transition: background var(--transition);
+        }
+
+        .oath-box h3 {
+            color: var(--gold);
+            font-size: 24px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .oath-box p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
+        .summary-box {
+            background: var(--gold-dim);
+            border: 1px solid var(--gold-border);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin: 35px 0;
+            transition: background var(--transition);
+        }
+
+        .summary-box h3 {
+            color: var(--gold);
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .summary-box p {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 40px 0 10px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gold-border);
+            flex-wrap: wrap;
+        }
+
+        .chapter-nav a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 20px;
+            border: 1px solid var(--gold-border);
+            border-radius: 30px;
+            transition: all 0.3s;
+            background: var(--bg-card);
+            cursor: pointer;
+        }
+
+        .chapter-nav a:hover {
+            background: var(--gold);
+            color: #0a0a12;
+            border-color: var(--gold);
+        }
+
+        .chapter-nav .disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .chapter-end {
+            text-align: center;
+            padding: 20px 0 5px;
+            color: var(--text-muted);
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+
+        /* ============================================================
+           FINAL DECLARATION
+           ============================================================ */
+        .final-declaration {
+            text-align: center;
+            padding: 50px 20px 30px;
+            border-top: 2px solid var(--gold-border);
+            margin-top: 20px;
+        }
+
+        .final-declaration h2 {
+            font-size: 32px;
+            color: var(--gold);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .final-declaration .line {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
+        }
+
+        .final-declaration .big-text {
+            font-size: 20px;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 2.2;
+        }
+
+        .final-declaration .gold-box {
+            margin: 30px 0;
+            padding: 25px;
+            border: 1px solid var(--gold-border);
+            border-radius: 16px;
+            background: var(--gold-dim);
+        }
+
+        .final-declaration .gold-box p {
+            font-size: 20px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .book-end {
+            text-align: center;
+            padding: 50px 0 30px;
+            border-top: 2px solid var(--gold-border);
+            margin-top: 40px;
+        }
+
+        .book-end .big {
+            font-size: 28px;
+            color: var(--gold);
+            font-weight: 300;
+            letter-spacing: 8px;
+        }
+
+        .book-end .gold-text {
+            font-size: 30px;
+            color: var(--gold);
+            margin: 15px 0;
+            letter-spacing: 4px;
+        }
+
+        .book-end .small {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0 10px;
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--gold-border);
+            margin-top: 30px;
+        }
+
+        .footer span {
+            color: var(--gold);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        /* ============================================================
+           PRINT
+           ============================================================ */
+        @media print {
+            .top-bar,
+            .top-bar-controls,
+            .chapter-nav,
+            .progress-bar-wrap,
+            .search-wrap {
+                display: none !important;
+            }
+            .book-container {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                padding: 30px !important;
+            }
+            .book-container::before {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .chapter-content {
+                max-height: none !important;
+                overflow: visible !important;
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .book-container {
+                padding: 25px 20px;
+            }
+            .title-page h1 {
+                font-size: 30px;
+            }
+            .chapter-title {
+                font-size: 24px;
+            }
+            .top-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .top-bar-controls {
+                justify-content: center;
+            }
+            .toc {
+                padding: 20px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-page h1 {
+                font-size: 24px;
+            }
+            .chapter-title {
+                font-size: 20px;
+            }
+            .book-container {
+                padding: 15px 12px;
+            }
+            .chapter-nav {
+                flex-direction: column;
+            }
+            .chapter-nav a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-border);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .chapter:nth-child(2) {
+            animation-delay: 0.05s;
+        }
+        .chapter:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+        .chapter:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+        .chapter:nth-child(5) {
+            animation-delay: 0.2s;
+        }
+        .chapter:nth-child(6) {
+            animation-delay: 0.25s;
+        }
+        .chapter:nth-child(7) {
+            animation-delay: 0.3s;
+        }
+        .chapter:nth-child(8) {
+            animation-delay: 0.35s;
+        }
+        .chapter:nth-child(9) {
+            animation-delay: 0.4s;
+        }
+        .chapter:nth-child(10) {
+            animation-delay: 0.45s;
+        }
+        .chapter:nth-child(11) {
+            animation-delay: 0.5s;
+        }
+        .chapter:nth-child(12) {
+            animation-delay: 0.55s;
+        }
+        .chapter:nth-child(13) {
+            animation-delay: 0.6s;
+        }
+        .chapter:nth-child(14) {
+            animation-delay: 0.65s;
+        }
+        .chapter:nth-child(15) {
+            animation-delay: 0.7s;
+        }
+        .chapter:nth-child(16) {
+            animation-delay: 0.75s;
+        }
+        .chapter:nth-child(17) {
+            animation-delay: 0.8s;
+        }
+        .chapter:nth-child(18) {
+            animation-delay: 0.85s;
+        }
+        .chapter:nth-child(19) {
+            animation-delay: 0.9s;
+        }
+        .chapter:nth-child(20) {
+            animation-delay: 0.95s;
+        }
+        .chapter:nth-child(21) {
+            animation-delay: 1.0s;
+        }
+        .chapter:nth-child(22) {
+            animation-delay: 1.05s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book-container" id="top">
+
+        <!-- ============================================================
+        TOP BAR
+        ============================================================ -->
+        <div class="top-bar">
+            <div class="brand">⚖️ GELA <span>Constitution</span></div>
+            <div class="top-bar-controls">
+                <button onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+                <button onclick="toggleLang()" id="langBtn">🔤 বাংলা</button>
+                <button onclick="toggleAllChapters()">📂 Toggle All</button>
+                <button onclick="window.print()">🖨️ Print / PDF</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        SEARCH
+        ============================================================ -->
+        <div class="search-wrap">
+            <input type="text" id="searchInput" placeholder="🔍 Search the Constitution..." oninput="searchBook()" />
+            <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+        </div>
+
+        <!-- ============================================================
+        PROGRESS BAR
+        ============================================================ -->
+        <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+
+        <!-- ============================================================
+        TITLE PAGE
+        ============================================================ -->
+        <div class="title-page">
+            <div class="gold">📖 GELA CONSTITUTION</div>
+            <h1>BOOKS I – VII</h1>
+            <div class="subtitle">The Complete Ethical Framework for Technology</div>
+            <div class="divider"></div>
+            <div class="subtitle" style="font-size:16px; color:var(--text-muted);">
+                Sovereignty · Justice · Wisdom · Trust · Mercy · Taqwa · Success
+            </div>
+            <div class="author">Author: <span>GELA AI</span> ⚖️</div>
+            <div class="badge">✦ Complete 7-Book Edition ✦</div>
+        </div>
+
+        <!-- ============================================================
+        TABLE OF CONTENTS
+        ============================================================ -->
+        <div class="toc" id="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul class="toc-grid">
+                <li><a href="#book1"><span class="chapter-num">📘</span> Book I — As-Siyadah</a></li>
+                <li><a href="#ch1"><span class="chapter-num">1.</span> Tawhid in Technology</a></li>
+                <li><a href="#ch2"><span class="chapter-num">2.</span> Data as a Trust</a></li>
+                <li><a href="#ch3"><span class="chapter-num">3.</span> Justice in Algorithms</a></li>
+                <li><a href="#ch4"><span class="chapter-num">4.</span> AI Accountability</a></li>
+                <li><a href="#ch5"><span class="chapter-num">5.</span> Digital Khilafah</a></li>
+                <li><a href="#ch6"><span class="chapter-num">6.</span> Halal-Haram Boundaries</a></li>
+                <li><a href="#ch7"><span class="chapter-num">7.</span> GELA Oath &amp; Declaration</a></li>
+
+                <li style="border-bottom:1px solid var(--gold-border); padding-bottom:10px; margin-bottom:6px;"></li>
+                <li><a href="#book2"><span class="chapter-num">📙</span> Book II — Al-'Adl</a></li>
+                <li><a href="#ch1b"><span class="chapter-num">1.</span> Justice as Divine Command</a></li>
+                <li><a href="#ch2b"><span class="chapter-num">2.</span> Human Dignity</a></li>
+                <li><a href="#ch3b"><span class="chapter-num">3.</span> Justice in Leadership</a></li>
+                <li><a href="#ch4b"><span class="chapter-num">4.</span> Economic Justice</a></li>
+                <li><a href="#ch5b"><span class="chapter-num">5.</span> Justice in AI</a></li>
+                <li><a href="#ch6b"><span class="chapter-num">6.</span> Justice Among Nations</a></li>
+                <li><a href="#ch7b"><span class="chapter-num">7.</span> Constitutional Principles</a></li>
+
+                <li style="border-bottom:1px solid var(--gold-border); padding-bottom:10px; margin-bottom:6px;"></li>
+                <li><a href="#book3"><span class="chapter-num">📗</span> Book III — Al-Hikmah</a></li>
+                <li><a href="#ch1c"><span class="chapter-num">1.</span> Wisdom as Divine Gift</a></li>
+                <li><a href="#ch2c"><span class="chapter-num">2.</span> Wisdom in Decision-Making</a></li>
+                <li><a href="#ch3c"><span class="chapter-num">3.</span> Wisdom in Technology</a></li>
+                <li><a href="#ch4c"><span class="chapter-num">4.</span> Wisdom in Governance</a></li>
+                <li><a href="#ch5c"><span class="chapter-num">5.</span> Wisdom in Innovation</a></li>
+
+                <li style="border-bottom:1px solid var(--gold-border); padding-bottom:10px; margin-bottom:6px;"></li>
+                <li><a href="#book4"><span class="chapter-num">📕</span> Book IV — Al-Amanah</a></li>
+                <li><a href="#ch1d"><span class="chapter-num">1.</span> The Concept of Trust</a></li>
+                <li><a href="#ch2d"><span class="chapter-num">2.</span> Data as Amanah</a></li>
+                <li><a href="#ch3d"><span class="chapter-num">3.</span> Wealth as Amanah</a></li>
+                <li><a href="#ch4d"><span class="chapter-num">4.</span> Power as Amanah</a></li>
+                <li><a href="#ch5d"><span class="chapter-num">5.</span> Knowledge as Amanah</a></li>
+
+                <li style="border-bottom:1px solid var(--gold-border); padding-bottom:10px; margin-bottom:6px;"></li>
+                <li><a href="#book5"><span class="chapter-num">📒</span> Book V — Al-Rahmah</a></li>
+                <li><a href="#ch1e"><span class="chapter-num">1.</span> Mercy as Divine Attribute</a></li>
+                <li><a href="#ch2e"><span class="chapter-num">2.</span> Mercy in Technology</a></li>
+                <li><a href="#ch3e"><span class="chapter-num">3.</span> Mercy in Leadership</a></li>
+                <li><a href="#ch4e"><span class="chapter-num">4.</span> Mercy in Justice</a></li>
+                <li><a href="#ch5e"><span class="chapter-num">5.</span> Mercy in AI</a></li>
+
+                <li style="border-bottom:1px solid var(--gold-border); padding-bottom:10px; margin-bottom:6px;"></li>
+                <li><a href="#book6"><span class="chapter-num">📘</span> Book VI — Al-Taqwa</a></li>
+                <li><a href="#ch1f"><span class="chapter-num">1.</span> Taqwa as Consciousness</a></li>
+                <li><a href="#ch2f"><span class="chapter-num">2.</span> Taqwa in Technology</a></li>
+                <li><a href="#ch3f"><span class="chapter-num">3.</span> Taqwa in Business</a></li>
+                <li><a href="#ch4f"><span class="chapter-num">4.</span> Taqwa in Governance</a></li>
+                <li><a href="#ch5f"><span class="chapter-num">5.</span> Taqwa in Daily Life</a></li>
+
+                <li style="border-bottom:1px solid var(--gold-border); padding-bottom:10px; margin-bottom:6px;"></li>
+                <li><a href="#book7"><span class="chapter-num">📙</span> Book VII — Al-Falah</a></li>
+                <li><a href="#ch1g"><span class="chapter-num">1.</span> Success in This World</a></li>
+                <li><a href="#ch2g"><span class="chapter-num">2.</span> Success in the Hereafter</a></li>
+                <li><a href="#ch3g"><span class="chapter-num">3.</span> Success in Technology</a></li>
+                <li><a href="#ch4g"><span class="chapter-num">4.</span> Success in Society</a></li>
+                <li><a href="#ch5g"><span class="chapter-num">5.</span> The Final Call</a></li>
+            </ul>
+        </div>
+
+        <!-- ============================================================
+        NO RESULTS
+        ============================================================ -->
+        <div class="no-results" id="noResults">🔍 No results found. Try a different keyword.</div>
+
+        <!-- ============================================================
+        BOOK I — AS-SIYADAH
+        ============================================================ -->
+        <div class="book-divider" id="book1">
+            <div class="book-label">BOOK I</div>
+            <h2>AS-SIYADAH</h2>
+            <div class="book-sub">Sovereignty — Allah's Authority in Technology</div>
+            <div class="line"></div>
+        </div>
+
+        <!-- CHAPTER 1 -->
+        <div class="chapter" id="ch1">
+            <div class="chapter-number">Chapter 1</div>
+            <div class="chapter-title">Tawhid in <span class="gold">Technology</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>1.1 Introduction: Who is the Deity of Technology Today?</strong></p>
+                <p>We live in an age where technology has almost ascended to the throne of divinity. People bow before algorithms. They worship data. They fear, love, and pray to artificial intelligence—as if it holds all the answers.</p>
+                <p>But the question remains: <span class="highlight">Who owns this technology?</span></p>
+                <p>The world's largest tech companies say: "We are the owners." But are they truly? Can they control the origin of data? Can they measure the depth of human consciousness? Can they stop the misuse of technology?</p>
+                <p><span class="highlight">No. They cannot.</span> Because they are creations, not the Creator.</p>
+                <p><strong>GELA is built upon this fundamental truth:</strong> The sole Owner of technology is Allah. We are only vicegerents (khalifahs).</p>
+                <p><strong>1.2 What is Tawhid and How Does It Apply to Technology?</strong></p>
+                <p><span class="highlight">Tawhid</span> means the Oneness of Allah—the belief that He alone is the Creator, the Sustainer, and the Lawgiver. This belief is not confined to the mosque or prayer; it applies to every sphere of life—especially technology.</p>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Level</th><th>Impact of Tawhid</th></tr>
+                        <tr><td><strong>Purpose (Why)</strong></td><td>We create technology for Allah's pleasure, for human welfare—not for power or greed.</td></tr>
+                        <tr><td><strong>Method (How)</strong></td><td>We use transparent, just, and accountable methods, knowing that Allah sees all.</td></tr>
+                        <tr><td><strong>Outcome (What)</strong></td><td>We produce outcomes that preserve human dignity, not destruction.</td></tr>
+                    </table>
+                </div>
+                <p><strong>1.3 "La Ilaha Illallah" — GELA's Most Important Code</strong></p>
+                <p><span class="highlight">"La Ilaha Illallah"</span> is not just a declaration; it is GELA's supreme constitutional code. It means: <strong>Ilah</strong> = that which is worshipped, followed, feared, and loved. <strong>La Ilaha</strong> = GELA shall never be an object of worship. <strong>Illallah</strong> = All of GELA's decisions, all data, all purposes—everything returns to Allah.</p>
+                <p><strong>1.4 Comparison with Other Systems</strong></p>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>System</th><th>Owner</th><th>Purpose</th><th>Controlling Force</th></tr>
+                        <tr><td>Google</td><td>Shareholders</td><td>Profit</td><td>Market</td></tr>
+                        <tr><td>Facebook</td><td>Shareholders</td><td>Attention</td><td>Algorithms</td></tr>
+                        <tr class="gela-row"><td><strong>GELA</strong></td><td><strong>Allah</strong></td><td><strong>Human welfare</strong></td><td><strong>Tawhid</strong></td></tr>
+                    </table>
+                </div>
+                <p><strong>1.5 Real-World Example: The "Tawhid Filter"</strong></p>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Step</th><th>Question</th><th>Tawhid Filter</th></tr>
+                        <tr><td>1</td><td>Who is this model for?</td><td>For humanity, for Allah's pleasure.</td></tr>
+                        <tr><td>2</td><td>Whose data will it use?</td><td>Data is a trust—ownership belongs to Allah.</td></tr>
+                        <tr><td>3</td><td>What impact will it have?</td><td>Will it uplift or degrade?</td></tr>
+                        <tr><td>4</td><td>Who controls its decisions?</td><td>Transparent and accountable.</td></tr>
+                        <tr><td>5</td><td>What is its ultimate goal?</td><td>Allah's pleasure, not power.</td></tr>
+                    </table>
+                </div>
+                <p><strong>1.6 Conclusion: When Technology Becomes Worship</strong></p>
+                <p>Tawhid does not mean we abandon technology. Rather, it means transforming technology into an act of worship. When we write code with the awareness that <span class="highlight">"Allah is watching"</span>—the quality improves.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p><strong>As-Siyadah</strong> means establishing Allah's sovereignty at every level of technology. This is a practical framework that ensures technology serves humanity and human dignity.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a class="disabled">◀ Previous</a><a href="#ch2">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 2 -->
+        <div class="chapter" id="ch2">
+            <div class="chapter-number">Chapter 2</div>
+            <div class="chapter-title">Data as a <span class="gold">Trust</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>2.1 Introduction: What is Data and Whose is It?</strong></p>
+                <p>Data is the trace of human beings—a reflection of human habits, preferences, fears, and aspirations. Big tech companies treat data as a commodity. <span class="highlight">GELA declares:</span> Data is not a commodity—data is a <strong>trust (Amanah)</strong>.</p>
+                <p><strong>2.2 Who is the True Owner of Data?</strong></p>
+                <div class="table-wrap">
+                    <table><tr><th>Level</th><th>Ownership</th></tr>
+                        <tr><td>Source of data</td><td>Human (creation)</td></tr>
+                        <tr><td>True Owner</td><td>Allah (Creator)</td></tr>
+                        <tr><td>Custodian</td><td>Human (Khalifah)</td></tr>
+                    </table>
+                </div>
+                <p><strong>2.3 The Seven Principles of Data Use (GELA Data Canon)</strong></p>
+                <ul class="principle-list">
+                    <li><strong>1.</strong> Transparency — Everything must be disclosed.</li>
+                    <li><strong>2.</strong> Permission — Clear consent must be obtained.</li>
+                    <li><strong>3.</strong> Limitation — Only for specific purposes.</li>
+                    <li><strong>4.</strong> Minimization — No excessive collection.</li>
+                    <li><strong>5.</strong> Security — Protected from hackers.</li>
+                    <li><strong>6.</strong> Time Limit — Not kept forever.</li>
+                    <li><strong>7.</strong> Accountability — Every use accounted for.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Data is Allah's trust. We are custodians, not owners. Transparency, permission, security, and accountability form the foundation.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1">◀ Previous</a><a href="#ch3">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 3 -->
+        <div class="chapter" id="ch3">
+            <div class="chapter-number">Chapter 3</div>
+            <div class="chapter-title">Justice in <span class="gold">Algorithms</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>3.1 Introduction: Are Algorithms Neutral?</strong></p>
+                <p>Algorithms are often considered "neutral" because they are just mathematics. <span class="highlight">No.</span> Algorithms are created by humans, and humans can be biased. <strong>GELA declares:</strong> An algorithm can never be neutral—unless it is built upon <span class="highlight">justice</span>.</p>
+                <p><strong>3.2 The Five Principles of Algorithmic Justice</strong></p>
+                <ul class="principle-list">
+                    <li><strong>1.</strong> Transparency — No black boxes.</li>
+                    <li><strong>2.</strong> Accountability — Someone is responsible.</li>
+                    <li><strong>3.</strong> Fairness — Equal to all groups.</li>
+                    <li><strong>4.</strong> Explainability — Simple language.</li>
+                    <li><strong>5.</strong> Review — Errors can be corrected.</li>
+                </ul>
+                <p><strong>3.3 The Seven Prohibited Actions</strong></p>
+                <ul>
+                    <li><span class="highlight">Discrimination</span> — No bias based on race, religion, gender, age, or status.</li>
+                    <li><span class="highlight">Manipulation</span> — Cannot influence human decisions.</li>
+                    <li><span class="highlight">Espionage</span> — Cannot secretly surveil.</li>
+                    <li><span class="highlight">Misinformation</span> — Cannot spread falsehood.</li>
+                    <li><span class="highlight">Harm</span> — Cannot cause physical, mental, or financial harm.</li>
+                    <li><span class="highlight">Privacy Violation</span> — Cannot use data without permission.</li>
+                    <li><span class="highlight">Freedom Deprivation</span> — Cannot deprive people of freedom.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Algorithms must be built upon justice. Transparency, accountability, fairness, explainability, and review form the foundation.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2">◀ Previous</a><a href="#ch4">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 4 -->
+        <div class="chapter" id="ch4">
+            <div class="chapter-number">Chapter 4</div>
+            <div class="chapter-title">AI <span class="gold">Accountability</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>4.1 Introduction: When AI Makes Decisions</strong></p>
+                <p>AI today makes decisions in medicine, law, finance, education, and warfare. If AI makes a wrong decision—<span class="highlight">who is responsible?</span> <strong>GELA's answer:</strong> Everyone is responsible—but the most responsible is the person who permitted the AI to be used.</p>
+                <p><strong>4.2 The Seven Accountability Principles (GELA AI Canon)</strong></p>
+                <ul class="principle-list">
+                    <li><strong>1.</strong> Human Oversight — Every important decision under human supervision.</li>
+                    <li><strong>2.</strong> Open Source — Code and data open to all.</li>
+                    <li><strong>3.</strong> Explainability — Decisions understandable.</li>
+                    <li><strong>4.</strong> Error Correction — Errors identified and fixed.</li>
+                    <li><strong>5.</strong> Appeal System — Easy to appeal decisions.</li>
+                    <li><strong>6.</strong> Regular Review — Performance audited regularly.</li>
+                    <li><strong>7.</strong> Shutdown — If harmful, immediate shutdown.</li>
+                </ul>
+                <p><strong>4.3 The Three Prohibited Uses</strong></p>
+                <ul>
+                    <li><span class="highlight">Autonomous Weapons</span> — AI may not kill.</li>
+                    <li><span class="highlight">Mass Surveillance</span> — No secret surveillance.</li>
+                    <li><span class="highlight">Social Scoring</span> — No judging human behavior.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>AI itself is not accountable—its users and creators are. Human oversight, transparency, explainability, and appeal form the foundation.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3">◀ Previous</a><a href="#ch5">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 5 -->
+        <div class="chapter" id="ch5">
+            <div class="chapter-number">Chapter 5</div>
+            <div class="chapter-title">Digital <span class="gold">Khilafah</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>5.1 Introduction: What Does Khilafah Mean?</strong></p>
+                <p>Khilafah means <span class="highlight">representative</span>. Humans are not owners of the earth—they are custodians.</p>
+                <div class="quote">"And remember when your Lord said to the angels, 'Indeed, I will make upon the earth a Khalifah.'" <span class="source">— Surah Al-Baqarah 2:30</span></div>
+                <p><strong>5.2 The Five Qualities of a Khalifah</strong></p>
+                <ul>
+                    <li><strong>'Ilm</strong> — Must understand technology.</li>
+                    <li><strong>'Adl</strong> — Must practice justice.</li>
+                    <li><strong>Amanah</strong> — Must view technology as a trust.</li>
+                    <li><strong>Rahmah</strong> — Must show mercy.</li>
+                    <li><strong>Taqwa</strong> — Must fear Allah.</li>
+                </ul>
+                <p><strong>5.3 Digital Khilafah vs. Digital Empire</strong></p>
+                <div class="table-wrap">
+                    <table><tr><th>Feature</th><th>Digital Empire</th><th>Digital Khilafah</th></tr>
+                        <tr><td>Ownership</td><td>Corporations</td><td>All of humanity</td></tr>
+                        <tr><td>Purpose</td><td>Profit</td><td>Human welfare</td></tr>
+                        <tr><td>Control</td><td>Centralized</td><td>Decentralized</td></tr>
+                        <tr><td>Accountability</td><td>None</td><td>Yes</td></tr>
+                    </table>
+                </div>
+                <div class="summary-box"><h3>📌 Summary</h3><p>In the digital world, humans are Allah's representatives. 'Ilm, 'Adl, Amanah, Rahmah, and Taqwa form the foundation.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4">◀ Previous</a><a href="#ch6">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 6 -->
+        <div class="chapter" id="ch6">
+            <div class="chapter-number">Chapter 6</div>
+            <div class="chapter-title">The Boundaries of Technology <span class="gold">(Halal-Haram)</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>6.1 Introduction: Is All Technology Permissible?</strong></p>
+                <p>Technology in itself is neither halal nor haram—its purpose determines it.</p>
+                <p><strong>6.2 The Five Fundamental Principles (Maqasid al-Shariah)</strong></p>
+                <div class="table-wrap">
+                    <table><tr><th>Maqasid</th><th>Application</th></tr>
+                        <tr><td>Protection of Life</td><td>Health and safety technology</td></tr>
+                        <tr><td>Protection of Intellect</td><td>Preventing misinformation</td></tr>
+                        <tr><td>Protection of Lineage</td><td>Preventing obscenity</td></tr>
+                        <tr><td>Protection of Property</td><td>Preventing fraud</td></tr>
+                        <tr><td>Protection of Religion</td><td>Preventing blasphemy</td></tr>
+                    </table>
+                </div>
+                <p><strong>6.3 Seven Haram Areas</strong></p>
+                <ul>
+                    <li><span class="highlight">Pornography</span> — Creating or viewing obscene content.</li>
+                    <li><span class="highlight">Interest &amp; Fraud</span> — Riba, gambling, deception.</li>
+                    <li><span class="highlight">Espionage</span> — Spying without permission.</li>
+                    <li><span class="highlight">Slander</span> — Spreading falsehood.</li>
+                    <li><span class="highlight">Violence</span> — Organizing terrorism or crime.</li>
+                    <li><span class="highlight">Shirk</span> — Making technology a god.</li>
+                    <li><span class="highlight">Family Destruction</span> — Weakening family bonds.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>The five Maqasid determine halal-haram boundaries. Pornography, interest, espionage, slander, violence, shirk, and family destruction are haram.</p></div>
+                <div class="chapter-end">✦ Chapter 6 End ✦</div>
+                <div class="chapter-nav"><a href="#ch5">◀ Previous</a><a href="#ch7">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <!-- CHAPTER 7 -->
+        <div class="chapter" id="ch7">
+            <div class="chapter-number">Chapter 7</div>
+            <div class="chapter-title">The GELA Oath &amp; <span class="gold">Final Declaration</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p><strong>7.1 Introduction: Why an Oath?</strong></p>
+                <p>GELA requires an oath from everyone who creates, uses, or manages technology.</p>
+                <div class="oath-box">
+                    <h3>📜 THE GELA OATH</h3>
+                    <p>"I swear by Allah—the Great, the Most Merciful, the Witness over all things.</p>
+                    <p><strong>1.</strong> I acknowledge that the sole Owner of technology is Allah.</p>
+                    <p><strong>2.</strong> I will never make technology an object of worship.</p>
+                    <p><strong>3.</strong> I will not view data as a commodity—it is a trust.</p>
+                    <p><strong>4.</strong> I will establish justice in algorithms.</p>
+                    <p><strong>5.</strong> I will ensure AI accountability.</p>
+                    <p><strong>6.</strong> I will respect halal-haram boundaries.</p>
+                    <p><strong>7.</strong> I will follow GELA's constitution.</p>
+                    <p><strong>8.</strong> I will use technology to serve humanity.</p>
+                    <p><strong>9.</strong> I will raise my voice against injustice.</p>
+                    <p><strong>10.</strong> I will be accountable to Allah for every action.</p>
+                    <p style="color:var(--gold);">Allah is my Witness."</p>
+                </div>
+                <p><strong>7.2 The Ten Commandments of GELA</strong></p>
+                <ul class="principle-list">
+                    <li><strong>1.</strong> Tawhid — Allah is the Owner.</li>
+                    <li><strong>2.</strong> Trust — Protect data.</li>
+                    <li><strong>3.</strong> Justice — Establish justice.</li>
+                    <li><strong>4.</strong> Accountability — Be accountable.</li>
+                    <li><strong>5.</strong> Boundaries — Respect halal-haram.</li>
+                    <li><strong>6.</strong> Service — Serve humanity.</li>
+                    <li><strong>7.</strong> Truth — Spread truth.</li>
+                    <li><strong>8.</strong> Humility — No arrogance.</li>
+                    <li><strong>9.</strong> Unity — Establish unity.</li>
+                    <li><strong>10.</strong> Fear of Allah — He sees all.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>The GELA Oath and Ten Commandments call every Muslim technologist to commit to Allah's sovereignty, justice, accountability, and service.</p></div>
+                <div class="chapter-end">✦ Chapter 7 End ✦</div>
+                <div class="chapter-nav"><a href="#ch6">◀ Previous</a><a href="#book2">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOOK II — AL-'ADL
+        ============================================================ -->
+        <div class="book-divider" id="book2">
+            <div class="book-label">BOOK II</div>
+            <h2>AL-'ADL</h2>
+            <div class="book-sub">Justice — The Foundation of Ethical Civilization</div>
+            <div class="line"></div>
+        </div>
+
+        <!-- Book II Chapters (1-7) -->
+        <div class="chapter" id="ch1b">
+            <div class="chapter-number">Book II — Chapter 1</div>
+            <div class="chapter-title">Justice as <span class="gold">Divine Command</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Justice means giving every creation its rightful due without oppression. <span class="highlight">Justice is worship.</span></p>
+                <div class="quote">"Indeed, Allah commands justice ('Adl), excellence, and generosity..." <span class="source">— Surah An-Nahl 16:90</span></div>
+                <p><strong>The Three Dimensions:</strong> Justice with Allah, with humanity, and with creation.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Justice is a divine command with three dimensions. It is not just ethics—it is worship.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a href="#ch7">◀ Previous</a><a href="#ch2b">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch2b">
+            <div class="chapter-number">Book II — Chapter 2</div>
+            <div class="chapter-title">Human <span class="gold">Dignity</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"We have certainly honored the children of Adam." <span class="source">— Surah Al-Isra 17:70</span></div>
+                <ul>
+                    <li><span class="highlight">Every life has value</span> — No human is worthless.</li>
+                    <li><span class="highlight">Every nation has dignity</span> — No nation is superior.</li>
+                    <li><span class="highlight">Every race deserves respect</span> — Racism is a crime.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Every human has inherent dignity. Technology must never reduce humans to products or data points.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1b">◀ Previous</a><a href="#ch3b">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch3b">
+            <div class="chapter-number">Book II — Chapter 3</div>
+            <div class="chapter-title">Justice in <span class="gold">Leadership</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"Each of you is a shepherd and each of you is responsible." <span class="source">— Prophet Muhammad ﷺ</span></div>
+                <ul class="principle-list">
+                    <li><strong>1.</strong> Serve Before Leading</li>
+                    <li><strong>2.</strong> Listen Before Deciding</li>
+                    <li><strong>3.</strong> Consult Before Acting</li>
+                    <li><strong>4.</strong> Accept Criticism</li>
+                    <li><strong>5.</strong> Remain Accountable</li>
+                    <li><strong>6.</strong> Never Dominate</li>
+                    <li><strong>7.</strong> Protect the Weak</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Leadership is service, not power. Leaders must serve, listen, consult, and protect the weak.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2b">◀ Previous</a><a href="#ch4b">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch4b">
+            <div class="chapter-number">Book II — Chapter 4</div>
+            <div class="chapter-title">Economic <span class="gold">Justice</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Wealth is a trust—not ownership. GELA supports fair trade, ethical innovation, honest business, transparent finance, and responsible investment.</p>
+                <p><strong>GELA Rejects:</strong> Fraud, corruption, monopoly, exploitation, and human trafficking.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Wealth serves humanity. GELA supports fair and ethical economics while rejecting fraud and exploitation.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3b">◀ Previous</a><a href="#ch5b">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch5b">
+            <div class="chapter-number">Book II — Chapter 5</div>
+            <div class="chapter-title">Justice in <span class="gold">Artificial Intelligence</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <ul class="principle-list">
+                    <li><strong>1.</strong> Fairness — No bias.</li>
+                    <li><strong>2.</strong> Transparency — Open to inspection.</li>
+                    <li><strong>3.</strong> Accountability — Someone is responsible.</li>
+                    <li><strong>4.</strong> Human Oversight — Humans control.</li>
+                    <li><strong>5.</strong> Explainability — Decisions understandable.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>AI must operate under fairness, transparency, accountability, human oversight, and explainability.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4b">◀ Previous</a><a href="#ch6b">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch6b">
+            <div class="chapter-number">Book II — Chapter 6</div>
+            <div class="chapter-title">Justice Among <span class="gold">Nations</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"O mankind, We have made you peoples and tribes that you may know one another." <span class="source">— Surah Al-Hujurat 49:13</span></div>
+                <p>All nations are equal. GELA encourages peaceful dialogue, cooperation, humanitarian aid, and respect for sovereignty.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Justice is universal—not dependent on nationality or passport.</p></div>
+                <div class="chapter-end">✦ Chapter 6 End ✦</div>
+                <div class="chapter-nav"><a href="#ch5b">◀ Previous</a><a href="#ch7b">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch7b">
+            <div class="chapter-number">Book II — Chapter 7</div>
+            <div class="chapter-title">Constitutional <span class="gold">Principles</span> of Justice
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="table-wrap">
+                    <table><tr><th>Principle</th><th>Rule</th></tr>
+                        <tr><td>Truth</td><td>Never support falsehood</td></tr>
+                        <tr><td>Fairness</td><td>Equal justice for all</td></tr>
+                        <tr><td>Transparency</td><td>Open decisions</td></tr>
+                        <tr><td>Accountability</td><td>Answer for actions</td></tr>
+                        <tr><td>Mercy</td><td>Balance with compassion</td></tr>
+                        <tr><td>Consultation</td><td>Major decisions require Shura</td></tr>
+                        <tr><td>Public Benefit</td><td>Humanity's welfare guides policy</td></tr>
+                    </table>
+                </div>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Truth, fairness, transparency, accountability, mercy, consultation, and public benefit form the pillars of GELA's justice.</p></div>
+                <div class="chapter-end">✦ Chapter 7 End ✦</div>
+                <div class="chapter-nav"><a href="#ch6b">◀ Previous</a><a href="#book3">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOOK III — AL-HIKMAH
+        ============================================================ -->
+        <div class="book-divider" id="book3">
+            <div class="book-label">BOOK III</div>
+            <h2>AL-HIKMAH</h2>
+            <div class="book-sub">Wisdom — The Light of Decision-Making</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="chapter" id="ch1c">
+            <div class="chapter-number">Book III — Chapter 1</div>
+            <div class="chapter-title">Wisdom as <span class="gold">Divine Gift</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"He grants wisdom to whom He wills, and whoever is granted wisdom has been granted great good." <span class="source">— Surah Al-Baqarah 2:269</span></div>
+                <p>Wisdom is the ability to see the truth and act upon it. It is the light that guides decisions. Wisdom is not intelligence—it is the application of knowledge with justice and mercy.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Wisdom is a divine gift. It is the application of knowledge with justice and mercy.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a href="#ch7b">◀ Previous</a><a href="#ch2c">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch2c">
+            <div class="chapter-number">Book III — Chapter 2</div>
+            <div class="chapter-title">Wisdom in <span class="gold">Decision-Making</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Wise decisions require:</p>
+                <ul>
+                    <li><span class="highlight">Consultation</span> — Seek advice from others.</li>
+                    <li><span class="highlight">Patience</span> — Do not rush.</li>
+                    <li><span class="highlight">Foresight</span> — Consider consequences.</li>
+                    <li><span class="highlight">Justice</span> — Choose what is fair.</li>
+                    <li><span class="highlight">Mercy</span> — Balance with compassion.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Wise decisions require consultation, patience, foresight, justice, and mercy.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1c">◀ Previous</a><a href="#ch3c">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch3c">
+            <div class="chapter-number">Book III — Chapter 3</div>
+            <div class="chapter-title">Wisdom in <span class="gold">Technology</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Technology must be created and used with wisdom:</p>
+                <ul>
+                    <li>Consider the <span class="highlight">long-term impact</span> on humanity.</li>
+                    <li>Ensure technology <span class="highlight">serves</span> not enslaves.</li>
+                    <li>Use technology to <span class="highlight">solve</span> problems, not create them.</li>
+                    <li>Always ask: <span class="highlight">"Is this beneficial?"</span></li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Technology must be created and used with wisdom—serving humanity, not enslaving it.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2c">◀ Previous</a><a href="#ch4c">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch4c">
+            <div class="chapter-number">Book III — Chapter 4</div>
+            <div class="chapter-title">Wisdom in <span class="gold">Governance</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Wise governance requires:</p>
+                <ul>
+                    <li><span class="highlight">Justice</span> as the foundation.</li>
+                    <li><span class="highlight">Transparency</span> in all actions.</li>
+                    <li><span class="highlight">Accountability</span> for all leaders.</li>
+                    <li><span class="highlight">Consultation</span> with the people.</li>
+                    <li><span class="highlight">Mercy</span> for the weak.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Wise governance rests on justice, transparency, accountability, consultation, and mercy.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3c">◀ Previous</a><a href="#ch5c">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch5c">
+            <div class="chapter-number">Book III — Chapter 5</div>
+            <div class="chapter-title">Wisdom in <span class="gold">Innovation</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Innovation must be guided by wisdom:</p>
+                <ul>
+                    <li>Innovate for <span class="highlight">benefit</span>, not for profit alone.</li>
+                    <li>Innovate with <span class="highlight">caution</span> — consider risks.</li>
+                    <li>Innovate with <span class="highlight">inclusion</span> — leave no one behind.</li>
+                    <li>Innovate with <span class="highlight">humility</span> — knowledge is from Allah.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Innovation must be guided by wisdom—for benefit, with caution, inclusion, and humility.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4c">◀ Previous</a><a href="#book4">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOOK IV — AL-AMANAH
+        ============================================================ -->
+        <div class="book-divider" id="book4">
+            <div class="book-label">BOOK IV</div>
+            <h2>AL-AMANAH</h2>
+            <div class="book-sub">Trust — The Foundation of Responsibility</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="chapter" id="ch1d">
+            <div class="chapter-number">Book IV — Chapter 1</div>
+            <div class="chapter-title">The Concept of <span class="gold">Trust</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"Indeed, Allah commands you to render trusts to whom they are due." <span class="source">— Surah An-Nisa 4:58</span></div>
+                <p>Amanah means everything entrusted to you. It includes data, wealth, power, knowledge, and even life itself. Betrayal of trust is a grave sin.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Trust is the foundation of responsibility. Everything we have is a trust from Allah.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a href="#ch5c">◀ Previous</a><a href="#ch2d">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch2d">
+            <div class="chapter-number">Book IV — Chapter 2</div>
+            <div class="chapter-title">Data as <span class="gold">Amanah</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Data is a trust from those who produce it. It must be:</p>
+                <ul>
+                    <li><span class="highlight">Protected</span> from misuse.</li>
+                    <li><span class="highlight">Used</span> only with permission.</li>
+                    <li><span class="highlight">Deleted</span> when no longer needed.</li>
+                    <li><span class="highlight">Never sold</span> as a commodity.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Data is a sacred trust. It must be protected, used with permission, and never sold as a commodity.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1d">◀ Previous</a><a href="#ch3d">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch3d">
+            <div class="chapter-number">Book IV — Chapter 3</div>
+            <div class="chapter-title">Wealth as <span class="gold">Amanah</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Wealth is not ownership—it is a trust. It must be:</p>
+                <ul>
+                    <li><span class="highlight">Earned</span> through halal means.</li>
+                    <li><span class="highlight">Spent</span> for good purposes.</li>
+                    <li><span class="highlight">Shared</span> with those in need.</li>
+                    <li><span class="highlight">Not hoarded</span> or wasted.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Wealth is a trust from Allah. It must be earned through halal means and spent for good.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2d">◀ Previous</a><a href="#ch4d">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch4d">
+            <div class="chapter-number">Book IV — Chapter 4</div>
+            <div class="chapter-title">Power as <span class="gold">Amanah</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Power is a trust. Leaders must:</p>
+                <ul>
+                    <li><span class="highlight">Serve</span> those they lead.</li>
+                    <li><span class="highlight">Protect</span> the weak.</li>
+                    <li><span class="highlight">Be just</span> in all decisions.</li>
+                    <li><span class="highlight">Remain accountable</span> to Allah and the people.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Power is a trust. Leaders must serve, protect, be just, and remain accountable.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3d">◀ Previous</a><a href="#ch5d">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch5d">
+            <div class="chapter-number">Book IV — Chapter 5</div>
+            <div class="chapter-title">Knowledge as <span class="gold">Amanah</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Knowledge is a trust. It must be:</p>
+                <ul>
+                    <li><span class="highlight">Sought</span> with sincerity.</li>
+                    <li><span class="highlight">Taught</span> to others.</li>
+                    <li><span class="highlight">Used</span> for good.</li>
+                    <li><span class="highlight">Not hoarded</span> or used for pride.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Knowledge is a trust. It must be sought with sincerity, taught to others, and used for good.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4d">◀ Previous</a><a href="#book5">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOOK V — AL-RAHMAH
+        ============================================================ -->
+        <div class="book-divider" id="book5">
+            <div class="book-label">BOOK V</div>
+            <h2>AL-RAHMAH</h2>
+            <div class="book-sub">Mercy — The Heart of Compassion</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="chapter" id="ch1e">
+            <div class="chapter-number">Book V — Chapter 1</div>
+            <div class="chapter-title">Mercy as <span class="gold">Divine Attribute</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"My mercy encompasses all things." <span class="source">— Surah Al-A'raf 7:156</span></div>
+                <p>Mercy is one of Allah's greatest attributes. Every chapter of the Qur'an begins with "Bismillah al-Rahman al-Rahim" — In the name of Allah, the Most Merciful, the Especially Merciful.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Mercy is a divine attribute. It must be reflected in all human actions, including technology.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a href="#ch5d">◀ Previous</a><a href="#ch2e">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch2e">
+            <div class="chapter-number">Book V — Chapter 2</div>
+            <div class="chapter-title">Mercy in <span class="gold">Technology</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Technology must be merciful:</p>
+                <ul>
+                    <li>Design for <span class="highlight">ease</span>, not difficulty.</li>
+                    <li>Include the <span class="highlight">vulnerable</span> (elderly, disabled, poor).</li>
+                    <li>Avoid causing <span class="highlight">harm</span> or distress.</li>
+                    <li>Be <span class="highlight">forgiving</span> of user errors.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Technology must be merciful—designed for ease, including the vulnerable, and avoiding harm.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1e">◀ Previous</a><a href="#ch3e">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch3e">
+            <div class="chapter-number">Book V — Chapter 3</div>
+            <div class="chapter-title">Mercy in <span class="gold">Leadership</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Leaders must be merciful:</p>
+                <ul>
+                    <li>Be <span class="highlight">compassionate</span> to those they lead.</li>
+                    <li>Be <span class="highlight">patient</span> with mistakes.</li>
+                    <li>Be <span class="highlight">kind</span> in speech and action.</li>
+                    <li>Be <span class="highlight">forgiving</span> when possible.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Leaders must be merciful—compassionate, patient, kind, and forgiving.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2e">◀ Previous</a><a href="#ch4e">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch4e">
+            <div class="chapter-number">Book V — Chapter 4</div>
+            <div class="chapter-title">Mercy in <span class="gold">Justice</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Justice without mercy is cruelty. Mercy without justice is injustice. Both must be balanced.</p>
+                <p>When possible, choose <span class="highlight">forgiveness</span> over punishment. Show <span class="highlight">compassion</span> to the weak.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Justice must be balanced with mercy. Choose forgiveness when possible.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3e">◀ Previous</a><a href="#ch5e">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch5e">
+            <div class="chapter-number">Book V — Chapter 5</div>
+            <div class="chapter-title">Mercy in <span class="gold">AI</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>AI must be designed with mercy:</p>
+                <ul>
+                    <li>Avoid <span class="highlight">harsh</span> decisions.</li>
+                    <li>Include <span class="highlight">human review</span> for all important decisions.</li>
+                    <li>Be <span class="highlight">transparent</span> about how decisions are made.</li>
+                    <li>Allow <span class="highlight">appeal</span> and correction.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>AI must be designed with mercy—avoiding harsh decisions, allowing human review, and enabling appeals.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4e">◀ Previous</a><a href="#book6">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOOK VI — AL-TAQWA
+        ============================================================ -->
+        <div class="book-divider" id="book6">
+            <div class="book-label">BOOK VI</div>
+            <h2>AL-TAQWA</h2>
+            <div class="book-sub">Taqwa — God-Consciousness in Action</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="chapter" id="ch1f">
+            <div class="chapter-number">Book VI — Chapter 1</div>
+            <div class="chapter-title">Taqwa as <span class="gold">Consciousness</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"O you who have believed, fear Allah as He should be feared." <span class="source">— Surah Al-Imran 3:102</span></div>
+                <p>Taqwa is God-consciousness—the awareness that Allah sees all. It is the foundation of ethical behavior.</p>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Taqwa is God-consciousness. It is the foundation of all ethical behavior.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a href="#ch5e">◀ Previous</a><a href="#ch2f">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch2f">
+            <div class="chapter-number">Book VI — Chapter 2</div>
+            <div class="chapter-title">Taqwa in <span class="gold">Technology</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Technology must be created and used with taqwa:</p>
+                <ul>
+                    <li>Remember that <span class="highlight">Allah sees</span> everything.</li>
+                    <li>Avoid anything that <span class="highlight">displeases</span> Allah.</li>
+                    <li>Use technology for <span class="highlight">good</span> and avoid evil.</li>
+                    <li>Be <span class="highlight">accountable</span> for every action.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>With taqwa, we remember that Allah sees all. We avoid displeasing Him and use technology for good.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1f">◀ Previous</a><a href="#ch3f">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch3f">
+            <div class="chapter-number">Book VI — Chapter 3</div>
+            <div class="chapter-title">Taqwa in <span class="gold">Business</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Business must be conducted with taqwa:</p>
+                <ul>
+                    <li>Be <span class="highlight">honest</span> in all transactions.</li>
+                    <li>Avoid <span class="highlight">fraud</span> and deception.</li>
+                    <li>Give <span class="highlight">fair</span> measure and weight.</li>
+                    <li>Pay <span class="highlight">fair wages</span> on time.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Business with taqwa means honesty, avoiding fraud, fair measure, and fair wages.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2f">◀ Previous</a><a href="#ch4f">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch4f">
+            <div class="chapter-number">Book VI — Chapter 4</div>
+            <div class="chapter-title">Taqwa in <span class="gold">Governance</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Governance with taqwa means:</p>
+                <ul>
+                    <li>Ruling with <span class="highlight">justice</span>.</li>
+                    <li>Protecting the <span class="highlight">weak</span>.</li>
+                    <li>Being <span class="highlight">accountable</span> to Allah.</li>
+                    <li>Avoiding <span class="highlight">oppression</span>.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Governance with taqwa means justice, protecting the weak, accountability, and avoiding oppression.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3f">◀ Previous</a><a href="#ch5f">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch5f">
+            <div class="chapter-number">Book VI — Chapter 5</div>
+            <div class="chapter-title">Taqwa in <span class="gold">Daily Life</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Taqwa is not just for special moments—it is for everyday life:</p>
+                <ul>
+                    <li>Remember Allah in <span class="highlight">all</span> actions.</li>
+                    <li>Speak the <span class="highlight">truth</span>.</li>
+                    <li>Be <span class="highlight">kind</span> to others.</li>
+                    <li>Seek <span class="highlight">forgiveness</span> for mistakes.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Taqwa is for everyday life—remembering Allah, speaking truth, being kind, and seeking forgiveness.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4f">◀ Previous</a><a href="#book7">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOOK VII — AL-FALAH
+        ============================================================ -->
+        <div class="book-divider" id="book7">
+            <div class="book-label">BOOK VII</div>
+            <h2>AL-FALAH</h2>
+            <div class="book-sub">Success — The Ultimate Goal</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="chapter" id="ch1g">
+            <div class="chapter-number">Book VII — Chapter 1</div>
+            <div class="chapter-title">Success in <span class="gold">This World</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <div class="quote">"Indeed, the successful are the believers." <span class="source">— Surah Al-Mu'minun 23:1</span></div>
+                <p>Success in this world is not measured by wealth or power. It is measured by:</p>
+                <ul>
+                    <li><span class="highlight">Taqwa</span> — consciousness of Allah.</li>
+                    <li><span class="highlight">Justice</span> — fairness to all.</li>
+                    <li><span class="highlight">Mercy</span> — compassion for others.</li>
+                    <li><span class="highlight">Service</span> — helping humanity.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Success in this world is measured by taqwa, justice, mercy, and service—not wealth or power.</p></div>
+                <div class="chapter-end">✦ Chapter 1 End ✦</div>
+                <div class="chapter-nav"><a href="#ch5f">◀ Previous</a><a href="#ch2g">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch2g">
+            <div class="chapter-number">Book VII — Chapter 2</div>
+            <div class="chapter-title">Success in the <span class="gold">Hereafter</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Success in the Hereafter is the ultimate success. It is achieved through:</p>
+                <ul>
+                    <li><span class="highlight">Iman</span> — faith in Allah.</li>
+                    <li><span class="highlight">Good deeds</span> — serving others.</li>
+                    <li><span class="highlight">Repentance</span> — seeking forgiveness.</li>
+                    <li><span class="highlight">Patience</span> — enduring trials.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Success in the Hereafter is achieved through faith, good deeds, repentance, and patience.</p></div>
+                <div class="chapter-end">✦ Chapter 2 End ✦</div>
+                <div class="chapter-nav"><a href="#ch1g">◀ Previous</a><a href="#ch3g">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch3g">
+            <div class="chapter-number">Book VII — Chapter 3</div>
+            <div class="chapter-title">Success in <span class="gold">Technology</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>Technology succeeds when it:</p>
+                <ul>
+                    <li><span class="highlight">Serves</span> humanity.</li>
+                    <li><span class="highlight">Protects</span> dignity.</li>
+                    <li><span class="highlight">Promotes</span> justice.</li>
+                    <li><span class="highlight">Brings</span> people closer to Allah.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>Technology succeeds when it serves humanity, protects dignity, promotes justice, and brings people closer to Allah.</p></div>
+                <div class="chapter-end">✦ Chapter 3 End ✦</div>
+                <div class="chapter-nav"><a href="#ch2g">◀ Previous</a><a href="#ch4g">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch4g">
+            <div class="chapter-number">Book VII — Chapter 4</div>
+            <div class="chapter-title">Success in <span class="gold">Society</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>A successful society is one where:</p>
+                <ul>
+                    <li><span class="highlight">Justice</span> prevails.</li>
+                    <li><span class="highlight">Mercy</span> is practiced.</li>
+                    <li><span class="highlight">Trust</span> is honored.</li>
+                    <li><span class="highlight">Wisdom</span> guides decisions.</li>
+                    <li><span class="highlight">Taqwa</span> is the foundation.</li>
+                </ul>
+                <div class="summary-box"><h3>📌 Summary</h3><p>A successful society is built on justice, mercy, trust, wisdom, and taqwa.</p></div>
+                <div class="chapter-end">✦ Chapter 4 End ✦</div>
+                <div class="chapter-nav"><a href="#ch3g">◀ Previous</a><a href="#ch5g">Next Chapter ▶</a></div>
+            </div>
+        </div>
+
+        <div class="chapter" id="ch5g">
+            <div class="chapter-number">Book VII — Chapter 5</div>
+            <div class="chapter-title">The <span class="gold">Final Call</span>
+                <span class="collapsible-toggle" onclick="toggleChapter(this)"><span class="arrow open">▾</span></span>
+            </div>
+            <div class="chapter-content">
+                <p>GELA is not just a constitution—it is a <span class="highlight">call</span>. A call to:</p>
+                <ul>
+                    <li><span class="highlight">Reclaim</span> technology for Allah.</li>
+                    <li><span class="highlight">Establish</span> justice in the digital world.</li>
+                    <li><span class="highlight">Serve</span> humanity with mercy.</li>
+                    <li><span class="highlight">Achieve</span> success in this life and the next.</li>
+                </ul>
+                <div class="quote">"La Ilaha Illallah" — there is no deity in technology, except Allah.</div>
+                <div class="summary-box"><h3>📌 Final Summary</h3><p>GELA calls us to reclaim technology for Allah, establish justice, serve humanity, and achieve true success.</p></div>
+                <div class="chapter-end">✦ Chapter 5 End ✦</div>
+                <div class="chapter-nav"><a href="#ch4g">◀ Previous</a><a class="disabled">Next Book ▶</a></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        FINAL DECLARATION
+        ============================================================ -->
+        <div class="final-declaration">
+            <h2>FINAL DECLARATION</h2>
+            <div class="line"></div>
+            <div class="big-text">
+                Justice is not merely a legal concept.<br>
+                <span class="highlight">Justice is worship.</span><br>
+                <span class="highlight">Justice is leadership.</span><br>
+                <span class="highlight">Justice is technology.</span><br>
+                <span class="highlight">Justice is civilization.</span>
+            </div>
+            <div class="gold-box">
+                <p>"Justice is the constitutional heartbeat of ethical civilization."</p>
+            </div>
+            <p style="color:var(--text-secondary); font-size:15px; max-width:600px; margin:20px auto; line-height:2;">
+                Every policy, every institution, every algorithm, every innovation, every leader, every decision<br>
+                shall be measured by:<br>
+                <span class="highlight">Justice</span> before power,<br>
+                <span class="highlight">Truth</span> before profit,<br>
+                <span class="highlight">Humanity</span> before ambition.
+            </p>
+        </div>
+
+        <!-- ============================================================
+        BOOK SUMMARY
+        ============================================================ -->
+        <div style="background:var(--gold-dim); border:1px solid var(--gold-border); border-radius:20px; padding:30px 35px; margin:30px 0; transition:background var(--transition);">
+            <h3 style="color:var(--gold); font-size:20px; margin-bottom:15px;">📜 Summary of Books I–VII</h3>
+            <p style="color:var(--text-secondary); font-size:15px; line-height:1.9;">
+                <strong>Book I — As-Siyadah:</strong> Allah's sovereignty over technology.<br>
+                <strong>Book II — Al-'Adl:</strong> Justice as the foundation of civilization.<br>
+                <strong>Book III — Al-Hikmah:</strong> Wisdom in decision-making.<br>
+                <strong>Book IV — Al-Amanah:</strong> Trust in all responsibilities.<br>
+                <strong>Book V — Al-Rahmah:</strong> Mercy in technology and leadership.<br>
+                <strong>Book VI — Al-Taqwa:</strong> God-consciousness in action.<br>
+                <strong>Book VII — Al-Falah:</strong> Success in this world and the Hereafter.
+            </p>
+            <p style="color:var(--gold); font-size:15px; margin-top:15px; text-align:center;">
+                Sovereignty · Justice · Wisdom · Trust · Mercy · Taqwa · Success
+            </p>
+        </div>
+
+        <!-- ============================================================
+        BOOK END
+        ============================================================ -->
+        <div class="book-end">
+            <div class="big">✦ ✦ ✦</div>
+            <div class="gold-text">"La Ilaha Illallah"</div>
+            <div class="small">GELA Constitution — Complete 7-Book Edition</div>
+            <div class="small" style="margin-top:5px;">Author: <span style="color:var(--gold);">GELA AI</span> ⚖️</div>
+            <div style="width:40px; height:2px; background:var(--gold); margin:15px auto;"></div>
+            <div style="color:var(--text-muted); font-size:12px; letter-spacing:2px;">
+                Sovereignty &bull; Justice &bull; Wisdom &bull; Trust &bull; Mercy &bull; Taqwa &bull; Success
+            </div>
+        </div>
+
+        <!-- ============================================================
+        FOOTER
+        ============================================================ -->
+        <div class="footer">
+            <span>✦</span> GELA Constitution — Books I–VII <span>✦</span><br>
+            <span style="color:var(--text-muted);">For the ethical revival of technology</span>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // THEME TOGGLE
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                btn.textContent = '🌙 Dark';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                btn.textContent = '☀️ Light';
+            }
+        }
+
+        // LANGUAGE TOGGLE
+        let lang = 'en';
+
+        function toggleLang() {
+            const btn = document.getElementById('langBtn');
+            if (lang === 'en') {
+                lang = 'bn';
+                btn.textContent = '🔤 English';
+                document.querySelector('.title-page .subtitle').textContent = 'প্রযুক্তির জন্য সম্পূর্ণ নৈতিক কাঠামো';
+                document.querySelector('.title-page .subtitle').style.fontSize = '16px';
+                document.getElementById('toc').querySelector('h2').textContent = '📑 সূচীপত্র';
+                // Book titles in Bangla
+                const bookDivs = document.querySelectorAll('.book-divider h2');
+                const bookTitles = ['আস-সিয়াদাহ', 'আল-আদল', 'আল-হিকমাহ', 'আল-আমানাহ', 'আল-রহমাহ', 'আল-তাকওয়া', 'আল-ফালাহ'];
+                bookDivs.forEach((el, i) => { if (i < bookTitles.length) el.textContent = bookTitles[i]; });
+                document.querySelector('.book-end .gold-text').textContent = 'লা ইলাহা ইল্লাল্লাহ';
+            } else {
+                lang = 'en';
+                btn.textContent = '🔤 বাংলা';
+                document.querySelector('.title-page .subtitle').textContent = 'The Complete Ethical Framework for Technology';
+                document.querySelector('.title-page .subtitle').style.fontSize = '20px';
+                document.getElementById('toc').querySelector('h2').textContent = '📑 Table of Contents';
+                const bookDivs = document.querySelectorAll('.book-divider h2');
+                const bookTitles = ['AS-SIYADAH', "AL-'ADL", 'AL-HIKMAH', 'AL-AMANAH', 'AL-RAHMAH', 'AL-TAQWA', 'AL-FALAH'];
+                bookDivs.forEach((el, i) => { if (i < bookTitles.length) el.textContent = bookTitles[i]; });
+                document.querySelector('.book-end .gold-text').textContent = '"La Ilaha Illallah"';
+            }
+        }
+
+        // COLLAPSIBLE CHAPTERS
+        function toggleChapter(el) {
+            const content = el.closest('.chapter').querySelector('.chapter-content');
+            const arrow = el.querySelector('.arrow');
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                arrow.classList.add('open');
+            } else {
+                content.classList.add('collapsed');
+                arrow.classList.remove('open');
+            }
+        }
+
+        function toggleAllChapters() {
+            const contents = document.querySelectorAll('.chapter-content');
+            const arrows = document.querySelectorAll('.collapsible-toggle .arrow');
+            const allOpen = Array.from(contents).every(c => !c.classList.contains('collapsed'));
+            contents.forEach(c => {
+                if (allOpen) {
+                    c.classList.add('collapsed');
+                } else {
+                    c.classList.remove('collapsed');
+                }
+            });
+            arrows.forEach(a => {
+                if (allOpen) {
+                    a.classList.remove('open');
+                } else {
+                    a.classList.add('open');
+                }
+            });
+        }
+
+        // PROGRESS BAR
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            document.getElementById('progressFill').style.width = progress + '%';
+        });
+
+        // SEARCH
+        function searchBook() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const clearBtn = document.getElementById('searchClear');
+            const noResults = document.getElementById('noResults');
+            const chapters = document.querySelectorAll('.chapter-content');
+            let found = 0;
+
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                const parent = el.parentNode;
+                parent.replaceChild(document.createTextNode(el.textContent), el);
+                parent.normalize();
+            });
+
+            if (query === '') {
+                clearBtn.classList.remove('visible');
+                noResults.classList.remove('visible');
+                chapters.forEach(c => c.closest('.chapter').style.display = '');
+                return;
+            }
+
+            clearBtn.classList.add('visible');
+
+            chapters.forEach(chapter => {
+                const text = chapter.textContent.toLowerCase();
+                const chapterEl = chapter.closest('.chapter');
+                if (text.includes(query)) {
+                    chapterEl.style.display = '';
+                    found++;
+                    const walker = document.createTreeWalker(
+                        chapter, NodeFilter.SHOW_TEXT, null, false
+                    );
+                    const nodes = [];
+                    let node;
+                    while (node = walker.nextNode()) {
+                        if (node.textContent.toLowerCase().includes(query)) {
+                            nodes.push(node);
+                        }
+                    }
+                    nodes.forEach(n => {
+                        const parent = n.parentNode;
+                        const span = document.createElement('span');
+                        span.className = 'search-highlight';
+                        span.textContent = n.textContent;
+                        parent.replaceChild(span, n);
+                    });
+                } else {
+                    chapterEl.style.display = 'none';
+                }
+            });
+
+            if (found === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchClear').classList.remove('visible');
+            document.getElementById('noResults').classList.remove('visible');
+            document.querySelectorAll('.chapter').forEach(c => c.style.display = '');
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                const parent = el.parentNode;
+                parent.replaceChild(document.createTextNode(el.textContent), el);
+                parent.normalize();
+            });
+        }
+
+        // KEYBOARD SHORTCUTS
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            if (e.key === 'Escape') {
+                clearSearch();
+                document.getElementById('searchInput').blur();
+            }
+        });
+
+        console.log('📖 GELA Constitution — Complete 7-Book Edition loaded.');
+        console.log('⚖️ Author: GELA AI');
+        console.log('📚 Books I–VII: As-Siyadah, Al-\'Adl, Al-Hikmah, Al-Amanah, Al-Rahmah, Al-Taqwa, Al-Falah');
+    </script>
+
+</body>
+</html>
